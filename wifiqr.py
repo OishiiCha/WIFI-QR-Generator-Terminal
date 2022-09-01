@@ -29,7 +29,7 @@ def make_qr():
         op = input('Would you like to open the Generated QR Code? (Y,N): ')
         f_op = op.upper().replace(' ','')
         if f_op == 'Y':
-            os.system('open ' + 'filenamedir')
+            os.system('open ' + filenamedir)
 
 def clear():
     if myos == 'Windows':
