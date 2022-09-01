@@ -58,6 +58,7 @@ def loop_func():
         ans = 1
     else:
         ans = 0
+        clear()
 
 def run():
     title()
