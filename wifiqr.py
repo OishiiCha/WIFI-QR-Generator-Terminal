@@ -32,7 +32,7 @@ def clear():
 
 def loop_func():
     global ans
-    loop_ans = input('Would you like to generator another QR Code? (Y,N): ')
+    loop_ans = input('Would you like to generate another QR Code? (Y,N): ')
     f_loop_ans = loop_ans.upper().replace(' ','')
     if f_loop_ans == 'Y':
         ans = 1
