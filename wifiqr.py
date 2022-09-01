@@ -7,6 +7,7 @@ from datetime import datetime
 
 # Static
 ans = 1
+myos = platform.system()
 
 def title():
     with open('title.txt', 'r') as f:
@@ -22,10 +23,16 @@ def make_qr():
     wificode = 'WIFI:T:WPA;P:'+pword+';S:'+ssid+';H:false'
     img = qrcode.make(wificode)
     type(img)
-    img.save('export/' + filename + ' ' + str(date) + '.png')
+    filenamedir = str('export/' + filename + ' ' + str(date) + '.png')
+    img.save(filenamedir)
+    if myos != 'Windows':
+        op = input('Would you like to open the Generated QR Code? (Y,N): ')
+        f_op = op.upper().replace(' ','')
+        if f_op == 'Y':
+            os.system('open ' + 'filenamedir')
 
 def clear():
-    if platform.system() == 'Windows':
+    if myos == 'Windows':
         os.system('cls')
     else:
         os.system('clear')
@@ -48,4 +55,3 @@ def run():
 if __name__ == '__main__':
     while ans == 1:
         run()
-
