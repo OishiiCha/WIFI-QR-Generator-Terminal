@@ -40,4 +40,7 @@ pip3 install -r requirements.txt
 ```
 chmod +x wifiqr.py
 ```
+```
+python3 ./wifiqr.py
+```
 As long as the Python dependencies are installed, this will work on Windows and MacOS.
