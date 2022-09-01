@@ -4,6 +4,8 @@ import time
 import os
 import platform
 from datetime import datetime
+import sys
+import subprocess
 
 # Static
 ans = 1
@@ -14,7 +16,13 @@ def title():
         for line in f:
             print(line.strip())
             time.sleep(0.1)
-            
+
+def openimage(path):
+    imageViewerFromCommandLine = {'linux':'xdg-open',
+                                  'win32':'explorer',
+                                  'darwin':'open'}[sys.platform]
+    subprocess.run([imageViewerFromCommandLine, path])
+
 def make_qr():
     date = datetime.now().strftime('%Y%m%d_%H-%M-%S')
     ssid = str(input('SSID: '))
@@ -25,11 +33,10 @@ def make_qr():
     type(img)
     filenamedir = str('export/' + filename + ' ' + str(date) + '.png')
     img.save(filenamedir)
-    if myos != 'Windows':
-        op = input('Would you like to open the Generated QR Code? (Y,N): ')
-        f_op = op.upper().replace(' ','')
-        if f_op == 'Y':
-            os.system('open ' + filenamedir)
+    op = input('Would you like to open the Generated QR Code? (Y,N): ')
+    f_op = op.upper().replace(' ','')
+    if f_op == 'Y':
+        openimage(filenamedir)
 
 def clear():
     if myos == 'Windows':
