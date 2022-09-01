@@ -30,8 +30,14 @@
 
 ```
 git clone https://github.com/OishiiCha/wifiqr.git
+```
+```
 cd wifiqr
-pip3 -r install requirements.txt
+```
+```
+pip3 install -r requirements.txt
+```
+```
 chmod +x wifiqr.py
 ```
 As long as the Python dependencies are installed, this will work on Windows and MacOS.
