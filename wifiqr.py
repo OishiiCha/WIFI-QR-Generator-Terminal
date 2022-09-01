@@ -28,7 +28,7 @@ def clear():
     if platform.system() == 'Windows':
         os.system('cls')
     else:
-        os.system('cls')
+        os.system('clear')
 
 def loop_func():
     global ans
