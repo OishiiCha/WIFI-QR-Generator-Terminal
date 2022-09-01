@@ -27,15 +27,21 @@ def make_qr():
     date = datetime.now().strftime('%Y%m%d_%H-%M-%S')
     ssid = str(input('SSID: '))
     pword = str(input('Password: '))
-    filename = str(input('File Name: '))
-    wificode = 'WIFI:T:WPA;P:'+pword+';S:'+ssid+';H:false'
+    filename = str(input('File Name: ') + ' ' + str(date) + '.png')
+    wificode = 'WIFI:T:WPA;P:' + pword + ';S:' + ssid + ';H:false'
     img = qrcode.make(wificode)
     type(img)
-    filenamedir = str('export/' + filename + ' ' + str(date) + '.png')
-    img.save(filenamedir)
+    savestr = str('export/'+filename)
+    img.save(savestr)
+    time.sleep(0.1)
     op = input('Would you like to open the Generated QR Code? (Y,N): ')
     f_op = op.upper().replace(' ','')
+    
     if f_op == 'Y':
+        if sys.platform == 'win32':
+            filenamedir = str('export\\'+filename)
+        else:
+            filenamedir = str('export/'+filename)
         openimage(filenamedir)
 
 def clear():
