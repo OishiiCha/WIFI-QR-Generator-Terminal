@@ -41,7 +41,7 @@ def make_qr():
     type(img)
     savestr = str('export/'+filename)
     img.save(savestr)
-    terminal_qr(wifiqr)
+    terminal_qr(wificode)
     time.sleep(0.1)
     op = input('Would you like to open the Generated QR Code? (Y,N): ')
     f_op = op.upper().replace(' ','')
