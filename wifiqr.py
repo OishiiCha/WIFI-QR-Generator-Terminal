@@ -41,11 +41,10 @@ def make_qr():
     type(img)
     savestr = str('export/'+filename)
     img.save(savestr)
-    terminal_qr(savestr)
+    terminal_qr(wifiqr)
     time.sleep(0.1)
     op = input('Would you like to open the Generated QR Code? (Y,N): ')
     f_op = op.upper().replace(' ','')
-    
     if f_op == 'Y':
         if sys.platform == 'win32':
             filenamedir = str('export\\'+filename)
@@ -67,7 +66,6 @@ def loop_func():
         ans = 1
     else:
         ans = 0
-
 
 def run():
     title()
