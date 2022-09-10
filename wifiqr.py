@@ -1,6 +1,7 @@
 import qrcode
 import time
 import os
+from os.path import isfile, join, dirname
 import platform
 from datetime import datetime
 import sys
@@ -10,6 +11,7 @@ import io
 # Static
 ans = 1
 myos = platform.system()
+export_path = '/export'
 
 def title():
     with open('title.txt', 'r') as f:
@@ -31,6 +33,31 @@ def terminal_qr(mqr):
     h.seek(0)
     print(h.read())
 
+def viewqr():
+    dir_path = str(dirname(os.path.realpath(__file__))) + '\export\\'
+    filenames = next(os.walk(dir_path), (None, None, []))[2]
+    o = 0
+    while o < len(filenames):
+        print('['+str(o)+'] '+filenames[o])
+        o += 1
+    ch = input('\nSelect number: ')
+    if ch.isnumeric() == 0 or len(filenames)-1<int(ch):
+        print('Please enter an option from the list')
+    filepath = dir_path + filenames[int(ch)]
+    print(filepath)
+    terminal_qr(filepath)
+    
+def options():
+    print('\nWhat would you like to do?\n\n[0] Generate new WiFiQR\n[1] View existing WiFiQR')
+    opt = input('\nChoose option: ')
+    optlist = {'0':make_qr,
+               '1':viewqr}
+    try:
+        function = optlist[opt]
+    except KeyError:
+        raise ValueError('invalid input')
+    function()
+
 def make_qr():
     date = datetime.now().strftime('%Y%m%d_%H-%M-%S')
     ssid = str(input('SSID: '))
@@ -41,10 +68,11 @@ def make_qr():
     type(img)
     savestr = str('export/'+filename)
     img.save(savestr)
-    terminal_qr(wificode)
+    terminal_qr(savestr)
     time.sleep(0.1)
     op = input('Would you like to open the Generated QR Code? (Y,N): ')
     f_op = op.upper().replace(' ','')
+    
     if f_op == 'Y':
         if sys.platform == 'win32':
             filenamedir = str('export\\'+filename)
@@ -60,21 +88,22 @@ def clear():
 
 def loop_func():
     global ans
-    loop_ans = input('Would you like to generate another QR Code? (Y,N): ')
+    loop_ans = input('Would you like to start over? (Y,N): ')
     f_loop_ans = loop_ans.upper().replace(' ','')
     if f_loop_ans == 'Y':
         ans = 1
     else:
         ans = 0
 
+
 def run():
     title()
-    make_qr()
+    options()
     clear()
     loop_func()
+    clear()
         
 if __name__ == '__main__':
-    
     while ans == 1:
         run()
-        
+
